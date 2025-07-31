@@ -27,7 +27,6 @@ test_command_data = [(0, 0, "S", "F", 0, 1, "S"),
                      (1, 2, "E", "3FR3FR3BL2FLFFL",	9, 7, "N"),
                      (1, 2, "E", "R15FL12F", 13, 17, "E")]
 
-
 @pytest.mark.parametrize(("start_x", "start_y", "start_direction", "commands", "end_x", "end_y", "end_direction"), test_command_data)
 def test_command_execution(start_x, start_y, start_direction, commands, end_x, end_y, end_direction):
     """
@@ -35,5 +34,22 @@ def test_command_execution(start_x, start_y, start_direction, commands, end_x, e
     """
     rover = Rover(start_x, start_y, start_direction)
     rover.execute_commands(commands)
+    assert rover.position == (end_x, end_y), f"Rover should end at position ({end_x}, {end_y})"
+    assert rover.direction == end_direction, f"Rover should face {end_direction} after executing commands"
+
+
+test_command_data_with_grid = [(2, 2, 0, 0, "E", "FF", 0, 0, "E"),
+                               (2, 2, 0, 0, "N", "F", 0, 1, "N"),
+                               (4, 4, 0, 0, "N", "FLFLF", 3, 0, "S")]
+
+@pytest.mark.parametrize(("grid_x", "grid_y", "start_x", "start_y", "start_direction", "commands", "end_x", "end_y", "end_direction"), test_command_data_with_grid)
+def test_command_execution_with_grid(grid_x, grid_y, start_x, start_y, start_direction, commands, end_x, end_y, end_direction):
+    """
+    Test the execution of a series of commands in a grid.
+    """
+    rover = Rover(start_x, start_y, start_direction)
+    rover.set_gridsize(grid_x, grid_y)
+    rover.execute_commands(commands)
+    rover.wrap()
     assert rover.position == (end_x, end_y), f"Rover should end at position ({end_x}, {end_y})"
     assert rover.direction == end_direction, f"Rover should face {end_direction} after executing commands"

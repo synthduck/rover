@@ -3,6 +3,14 @@ class Rover:
         self.position = (x, y)
         self.direction = direction
 
+    def set_gridsize(self, x, y):
+        self.gridsize = (x, y)  
+    
+    def wrap(self):
+        x, y = self.position
+        grid_x, grid_y = self.gridsize
+        self.position = (x % grid_x, y % grid_y)
+
     def _repeat(self, multiplier, command):
         if multiplier == "":
             multiplier = 1
