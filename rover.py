@@ -18,12 +18,16 @@ class Rover:
             match command:
                 case "F":
                     self._repeat(multiplier, self.move_forward)
+                    multiplier = ""
                 case "B":
                     self._repeat(multiplier, self.move_backward)
+                    multiplier = ""
                 case "R":
                     self._repeat(multiplier, self.turn_right)
+                    multiplier = ""
                 case "L":
                     self._repeat(multiplier, self.turn_left)
+                    multiplier = ""
                 case _:
                     multiplier += command
     
