@@ -3,18 +3,30 @@ class Rover:
         self.position = (x, y)
         self.direction = direction
 
+    def _repeat(self, multiplier, command):
+        if multiplier == "":
+            multiplier = 1
+        else:
+            multiplier = int(multiplier)
+    
+        for _ in range(multiplier):
+            command()
+
     def execute_commands(self, commands):
+        multiplier = ""
         for command in commands:
             match command:
                 case "F":
-                    self.move_forward()
+                    self._repeat(multiplier, self.move_forward)
                 case "B":
-                    self.move_backward()
+                    self._repeat(multiplier, self.move_backward)
                 case "R":
-                    self.turn_right()
+                    self._repeat(multiplier, self.turn_right)
                 case "L":
-                    self.turn_left()
-                
+                    self._repeat(multiplier, self.turn_left)
+                case _:
+                    multiplier += command
+    
     def move_forward(self):
         x, y = self.position
         if self.direction == "N":

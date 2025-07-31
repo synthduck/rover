@@ -20,7 +20,9 @@ test_command_data = [(0, 0, "S", "F", 0, 1, "S"),
                      (0, 0, "N", "RFRFFLF",	2, 2, "E"),
                      (0, 0, "N", "RRFFLFFFRF", 3, 3, "S"),
                      (1, 2, "W", "FLF",	0, 3, "S"),
-                     (1, 2, "E", "FFFRFFFRBBBLFFLFFL", 9, 7, "N")]
+                     (1, 2, "E", "FFFRFFFRBBBLFFLFFL", 9, 7, "N"),
+                     (0, 0, "N", "2R", 0, 0, "S")]
+
 
 @pytest.mark.parametrize(("start_x", "start_y", "start_direction", "commands", "end_x", "end_y", "end_direction"), test_command_data)
 def test_command_execution(start_x, start_y, start_direction, commands, end_x, end_y, end_direction):
