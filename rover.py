@@ -5,8 +5,11 @@ class Rover:
 
     def execute_commands(self, commands):
         for command in commands:
-            if command == 'f':
-                self.move_forward()
+            match command:
+                case "F":
+                    self.move_forward()
+                case "R":
+                    self.turn_right()
                 
     def move_forward(self):
         x, y = self.position
@@ -18,3 +21,8 @@ class Rover:
             self.position = (x + 1, y)
         elif self.direction == "W":
             self.position = (x - 1, y)
+    
+    def turn_right(self):
+        directions = ["N", "E", "S", "W"]
+        current_index = directions.index(self.direction)
+        self.direction = directions[(current_index + 1) % 4] 

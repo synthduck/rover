@@ -9,10 +9,11 @@ def test_starting_position():
     assert rover.position == (0, 0), "Rover should start at position (0, 0)"
     assert rover.direction == "N", "Rover should face North"
 
-test_command_data = [(0, 0, "S", ['f'], 0, 1, "S"),
-                     (0, 1, "N", ['f'], 0, 0, "N"),
-                     (0, 0, "E", ['f'], 1, 0, "E"),
-                     (1, 0, "W", ['f'], 0, 0, "W")]
+test_command_data = [(0, 0, "S", "F", 0, 1, "S"),
+                     (0, 1, "N", "F", 0, 0, "N"),
+                     (0, 0, "E", "F", 1, 0, "E"),
+                     (1, 0, "W", "F", 0, 0, "W"),
+                     (0, 0, "N", "RR", 0, 0, "S")]
 
 @pytest.mark.parametrize(("start_x", "start_y", "start_direction", "commands", "end_x", "end_y", "end_direction"), test_command_data)
 def test_command_execution(start_x, start_y, start_direction, commands, end_x, end_y, end_direction):
