@@ -2,10 +2,15 @@ class Rover:
     def __init__(self, x, y, direction):
         self.position = (x, y)
         self.direction = direction
+        self.obstacle_locations = []
+        self.last_route_status = True
 
     def set_gridsize(self, x, y):
         self.gridsize = (x, y)  
-    
+
+    def set_obstacles(self, obstacle_locations):
+        self.obstacle_locations = obstacle_locations
+
     def wrap(self):
         x, y = self.position
         grid_x, grid_y = self.gridsize
@@ -64,25 +69,37 @@ class Rover:
     
     def move_forward(self):
         x, y = self.position
+        new_position = None
         if self.direction == "N":
-            self.position = (x, y - 1)
+            new_position = (x, y - 1)
         elif self.direction == "S":
-            self.position = (x, y + 1)
+            new_position = (x, y + 1)
         elif self.direction == "E":
-            self.position = (x + 1, y)
+            new_position = (x + 1, y)
         elif self.direction == "W":
-            self.position = (x - 1, y)
+            new_position = (x - 1, y)
+        
+        if new_position in self.obstacle_locations:
+            self.last_route_status = False
+        else:
+            self.position = new_position
 
     def move_backward(self):
         x, y = self.position
+        new_position = None
         if self.direction == "N":
-            self.position = (x, y + 1)
+            new_position = (x, y + 1)
         elif self.direction == "S":
-            self.position = (x, y - 1)
+            new_position = (x, y - 1)
         elif self.direction == "E":
-            self.position = (x - 1, y)
+            new_position = (x - 1, y)
         elif self.direction == "W":
-            self.position = (x + 1, y)
+            new_position = (x + 1, y)
+        
+        if new_position in self.obstacle_locations:
+            self.last_route_status = False
+        else:
+            self.position = new_position
     
     def turn_right(self):
         directions = ["N", "E", "S", "W"]

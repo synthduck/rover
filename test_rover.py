@@ -53,3 +53,25 @@ def test_command_execution_with_grid(grid_x, grid_y, start_x, start_y, start_dir
     rover.wrap()
     assert rover.position == (end_x, end_y), f"Rover should end at position ({end_x}, {end_y})"
     assert rover.direction == end_direction, f"Rover should face {end_direction} after executing commands"
+
+test_command_data_with_obstacles = [((2, 2), [(0,1),(1,1)], (0, 0), "N", "RFRF", (1, 0), "S", False)]
+
+@pytest.mark.parametrize(("gridsize", "obstacle_locations","start", "start_direction", "commands", "end", "end_direction", "completed_route"), test_command_data_with_obstacles)
+def test_command_execution_with_grid(gridsize, obstacle_locations, start, start_direction, commands, end, end_direction, completed_route):
+    """
+    Test the execution of a series of commands in a grid considering obstacles.
+    """
+    grid_x, grid_y = gridsize
+    start_x, start_y = start
+    end_x, end_y = end
+
+    rover = Rover(start_x, start_y, start_direction)
+    rover.set_gridsize(grid_x, grid_y)
+    rover.set_obstacles(obstacle_locations)
+    rover.execute_commands(commands)
+    rover.wrap()
+    assert rover.last_route_status == completed_route, f"Route should be {completed_route}"
+    assert rover.position == (end_x, end_y), f"Rover should end at position ({end_x}, {end_y})"
+    assert rover.direction == end_direction, f"Rover should face {end_direction} after executing commands"
+
+
