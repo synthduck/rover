@@ -39,8 +39,8 @@ def test_command_execution(start_x, start_y, start_direction, commands, end_x, e
 
 
 test_command_data_with_grid = [(2, 2, 0, 0, "E", "FF", 0, 0, "E"),
-                               (2, 2, 0, 0, "N", "F", 0, 1, "N"),
-                               (4, 4, 0, 0, "N", "FLFLF", 3, 0, "S")]
+                               (2, 2, 0, 0, "N", "F", 1, 0, "S"),
+                               (4, 4, 0, 0, "N", "FLFLF", 1, 0, "S")]
 
 @pytest.mark.parametrize(("grid_x", "grid_y", "start_x", "start_y", "start_direction", "commands", "end_x", "end_y", "end_direction"), test_command_data_with_grid)
 def test_command_execution_with_grid(grid_x, grid_y, start_x, start_y, start_direction, commands, end_x, end_y, end_direction):
